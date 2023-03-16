@@ -42,20 +42,11 @@ module.exports = {
         type: 'asset/resource'
       },
       {
-        test: /\.(woff|woff2)$/,
-        use: 
-        {
-          loader: 'url-loader',
-          options: 
-          {
-            limit: 10000,
-            mimetype: "applicaton/font-woff",
-            name: "[name][contenthash].[ext]",
-            outputPath: "./assets/fonts/",
-            pulblicPath: "./assets/fonts/",
-            esModule: false
-          }
-        }
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[hash][ext]",
+        },
       }
     ]
   },
@@ -78,4 +69,10 @@ module.exports = {
     }),
     new Dotenv()
   ],
+  devServer: {
+    static: path.join(__dirname, 'dist'),
+    compress: true,
+    historyApiFallback: true,
+    port: 3006
+  }
 }
